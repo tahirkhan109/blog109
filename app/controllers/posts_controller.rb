@@ -6,6 +6,8 @@ class PostsController < ApplicationController
     @post = Post.new(params_post)
     if @post.save
       redirect_to @post
+    else
+      render "new"
     end
   end
 
