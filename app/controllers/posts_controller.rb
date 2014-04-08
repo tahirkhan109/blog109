@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  http_basic_authenticate_with name: 'tahir', password: 'tahir', except: [:index, :show]
+  #http_basic_authenticate_with name: 'tahir', password: 'tahir', except: [:index, :show]
+  before_action :authenticate_user!
   def new
     @post = Post.new
   end
@@ -13,11 +14,13 @@ class PostsController < ApplicationController
   end
 
   def show
-  @post = Post.find(params[:id])
+
+    @post = Post.find(params[:id])
+
   end
 
   def index
-    @posts = Post.all
+    @posts = current_user.posts
   end
 
   def destroy
@@ -43,5 +46,5 @@ class PostsController < ApplicationController
 end
 private
 def params_post
-  params[:post].permit(:title, :text)
+  params[:post].permit(:title, :text,:user_id)
 end

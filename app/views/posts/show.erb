@@ -1,29 +1,55 @@
-<p>
-<strong>Title</strong>
-<%= @post.title %>
-</p>
-<p>
-  <strong>Text</strong>
+<div class="row-fluid sortable ui-sortable">
+  <div class="box span12">
+    <div class="box-header">
+      <h2><i class="icon-align-justify"></i><span class="break"></span>Show</h2>
+      <div class="box-icon">
+        <a class="btn-setting" href="#"><i class="icon-wrench"></i></a>
+        <a class="btn-minimize" href="#"><i class="icon-chevron-up"></i></a>
+        <a class="btn-close" href="#"><i class="icon-remove"></i></a>
+      </div>
+    </div>
+    <div class="box-content">
+
+      <table class="table table-bordered table-striped table-condensed">
+        <thead>
+        <tr>
+          <th>Title</th>
+          <th>Text</th>
+        </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td>
+  <%= @post.title %>
+  </td>
+  <td>
   <%= @post.text %>
-</p>
-<h2>Comments:</h2>
-<% @post.comments.each do |a| %>
-<p>
-    <strong>Commenter:</strong>
-    <%= a.commenter %>
-</p>
-<p>
-    <strong>Body:</strong>
-    <%= a.body %>
-</p>
-    <p>
-      <%= link_to 'Destroy Comment', [a.post, a],
-                  method: :delete,
-                  data: { confirm: 'Are you sure?' } %>
-    </p>
-    <% end %>
+  </td>
+</tr>
+        </tbody>
+      </table>
+
+      <%= link_to "Back To Posts", posts_path, :class => 'btn btn-primary'%>
+      <%= link_to "Edit Post", edit_post_path, :class => 'btn btn-primary' %>
+
+    </div>    </div>    </div>
+
+
+
+      <div class="row-fluid sortable ui-sortable">
+  <div class="box span12">
+    <div class="box-header">
+      <h2><i class="icon-align-justify"></i><span class="break"></span>Add a comment:</h2>
+      <div class="box-icon">
+        <a class="btn-setting" href="#"><i class="icon-wrench"></i></a>
+        <a class="btn-minimize" href="#"><i class="icon-chevron-up"></i></a>
+        <a class="btn-close" href="#"><i class="icon-remove"></i></a>
+      </div>
+    </div>
+    <div class="box-content">
+
 <h2>Add a comment:</h2>
-<%= form_for([@post, @post.comments.build]) do |f| %>
+<%= form_for([@post, @post.comments.build]) do  |f| %>
     <p>
       <%= f.label :commenter %><br />
       <%= f.text_field :commenter %>
@@ -33,9 +59,88 @@
       <%= f.text_area :body %>
     </p>
     <p>
-      <%= f.submit %>
+      <%= f.submit :class => 'btn btn-primary' %>
     </p>
 <% end %>
 
-<%= link_to "Back", posts_path %>
-<%= link_to "Edit", edit_post_path %>
+    </div>    </div>    </div>
+
+<div class="row-fluid sortable ui-sortable">
+  <div class="box span12">
+    <div class="box-header">
+      <h2><i class="icon-align-justify"></i><span class="break"></span>Comments</h2>
+      <div class="box-icon">
+        <a class="btn-setting" href="#"><i class="icon-wrench"></i></a>
+        <a class="btn-minimize" href="#"><i class="icon-chevron-up"></i></a>
+        <a class="btn-close" href="#"><i class="icon-remove"></i></a>
+      </div>
+    </div>
+    <div class="box-content">
+      <table class="table table-bordered table-striped table-condensed" id="carrier_table_inner" >
+        <thead>
+        <tr>
+          <th>Commenter</th>
+          <th>Body</th>
+          <th>Delete Comment</th>
+        </tr>
+        </thead>
+        <tbody>
+        <h2>Comments:</h2>
+        <% @post.comments.each do |a| %>
+            <tr>
+             <td>
+              <%= a.commenter %>
+             </td>
+
+
+              <td>
+              <%= a.body %>
+              </td>
+              <td>
+              <%= link_to 'Destroy Comment', [a.post, a],
+                          method: :delete,
+                          data: { confirm: 'Are you sure?' }, :class => 'label label-important'  %>
+              </td>
+            </tr>
+        <% end %>
+
+        </tbody>
+      </table>
+      <div class="pagination pagination-centered">
+        <ul>
+          <li><a href="#">Prev</a></li>
+          <li class="active">
+            <a href="#">1</a>
+          </li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">Next</a></li>
+        </ul>
+      </div>
+    </div>
+  </div><!--/span-->
+</div>
+<script type="text/javascript">
+    $('#carrier_table_inner').dataTable({
+        "bPaginate":true,
+        "bSort":true,
+        "asDataSearch":false,
+        "bAutoWidth":false,
+
+        "aoColumnDefs":[
+            { 'bSortable':false, 'aTargets':[ 0 ] }
+        ]
+
+    });
+
+    //    $(document).ready(function () {
+    //        Checks.init();
+    //    })
+</script>
+<style>
+  #carrier_table_inner_length
+  {
+      width:20px;
+  }
+</style>

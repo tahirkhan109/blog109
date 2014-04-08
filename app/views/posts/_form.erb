@@ -10,6 +10,7 @@
           </ul>
         </div>
     <% end %>
+    <%= f.hidden_field "user_id", :value => current_user.id %>
     <p>
       <%= f.label :title %>
       <%= f.text_field :title %>
@@ -19,7 +20,7 @@
       <%= f.text_area :text %>
     </p>
     <p>
-      <%= f.submit%>
+      <%= f.submit  :class => "btn btn-primary" %>
     </p>
 
 <% end %>

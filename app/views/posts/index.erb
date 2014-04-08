@@ -1,22 +1,93 @@
-<h1>Listings Posts</h1>
-<table>
-<tr>
-<th>Title</th>
-<th>Text</th>
-<th>*</th>
-<th>*</th>
-<th>*</th>
-</tr>
-  <% @posts.each do |post| %>
-  <tr>
-    <td><%= post.title %></td>
-    <td><%= post.text %></td>
-    <td><%= link_to "Show", post %></td>
-    <td><%= link_to "Update",edit_post_path(post) %></td>
-    <td><%= link_to 'Destro', post_path(post),
+<!--<h1>Listings Posts</h1>-->
+<!--<table>-->
+<!--<tr>-->
+<!--<th>Title</th>-->
+<!--<th>Text</th>-->
+<!--<th>*</th>-->
+<!--<th>*</th>-->
+<!--<th>*</th>-->
+<!--</tr>-->
+  <!--<%# @posts.each do |post| %>-->
+  <!--<tr>-->
+    <!--<td><%#= post.title %></td>-->
+    <!--<td><%#= post.text %></td>-->
+    <!--<td><%#= link_to "Show", post %></td>-->
+    <!--<td><%#= link_to "Update",edit_post_path(post) %></td>-->
+    <td><%#= link_to 'Destro', post_path(post),
                     method: :delete, data: { confirm: 'Are you sure' } %></td>
-  </tr>
-  <% end %>
+  <!--</tr>-->
+  <!--<%# end %>-->
 
-</table>
-<%= link_to "New Post", new_post_path %>
+<!--</table>-->
+<!--<%#= link_to "New Post", new_post_path %>-->
+<div class="row-fluid sortable ui-sortable">
+  <div class="box span12">
+    <div class="box-header">
+      <h2><i class="icon-align-justify"></i><span class="break"></span>Listings Posts</h2>
+      <div class="box-icon">
+        <a class="btn-setting" href="#"><i class="icon-wrench"></i></a>
+        <a class="btn-minimize" href="#"><i class="icon-chevron-up"></i></a>
+        <a class="btn-close" href="#"><i class="icon-remove"></i></a>
+      </div>
+    </div>
+    <div class="box-content">
+      <table class="table table-bordered table-striped table-condensed" id="carrier_table_inner1">
+        <thead>
+        <tr>
+          <th>Title</th>
+          <th>Text</th>
+          <th>Show</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <% @posts.each do |post| %>
+            <tr>
+              <td><%= post.title %></td>
+              <td><%= post.text %></td>
+              <td><%= link_to "Show", post, :class => 'label label-success' %></td>
+              <td><%= link_to "Update",edit_post_path(post), :class => 'label label-warning' %></td>
+              <td><%= link_to 'Destro', post_path(post),
+                              method: :delete, data: { confirm: 'Are you sure' }, :class => 'label label-important' %></td>
+            </tr>
+        <% end %>
+
+
+        </tbody>
+      </table>
+      <div class="pagination pagination-centered">
+        <ul>
+          <li><a href="#">Prev</a></li>
+          <li class="active">
+            <a href="#">1</a>
+          </li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">Next</a></li>
+        </ul>
+      </div>
+    </div>
+  </div><!--/span-->
+
+</div>
+<%= link_to "New Post", new_post_path , :class => 'btn btn-primary' %>
+<script type="text/javascript">
+    $('#carrier_table_inner1').dataTable({
+        "bPaginate":true,
+        "bSort":true,
+        "asDataSearch":false,
+        "bAutoWidth":false,
+
+        "aoColumnDefs":[
+            { 'bSortable':false, 'aTargets':[ 0 ] }
+        ]
+
+    });
+
+    //    $(document).ready(function () {
+    //        Checks.init();
+    //    })
+</script>
