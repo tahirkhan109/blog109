@@ -16,6 +16,11 @@
     <strong>Body:</strong>
     <%= a.body %>
 </p>
+    <p>
+      <%= link_to 'Destroy Comment', [a.post, a],
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' } %>
+    </p>
     <% end %>
 <h2>Add a comment:</h2>
 <%= form_for([@post, @post.comments.build]) do |f| %>

@@ -9,6 +9,16 @@ puts "11111111111111111111111",params.inspect
 render 'new'
   end
 
+
 end
+
+  def destroy
+  puts "aaaaaaaaaaaaaaaaaaaaaaa",params.inspect
+    @post = Post.find(params[:post_id])
+  @comment = @post.comments.find(params[:id])
+  @comment.destroy
+    redirect_to post_path(@post)
+  end
+
 
 end
